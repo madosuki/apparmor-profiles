@@ -42,6 +42,8 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
   @{PROC}/[0-9]*/net/dev r,
   @{PROC}/[0-9]*/net/wireless r,
 
+  owner @{HOME}/.mozilla/firefox/*/gmp-widevinecdm/*/libwidevinecdm.so m,
+
   # should maybe be in abstractions
   /etc/ r,
   /etc/mime.types r,
