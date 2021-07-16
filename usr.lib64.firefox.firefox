@@ -41,6 +41,12 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
   @{PROC}/[0-9]*/net/ipv6_route r,
   @{PROC}/[0-9]*/net/dev r,
   @{PROC}/[0-9]*/net/wireless r,
+  @{PROC}/[0-9]*/cgroup r,
+  @{PROC}/@{pid}/uid_map r,
+
+  owner @{PROC}/@{pid}/setgroups w,
+  owner @{PROC}/@{pid}/uid_map w,
+  owner @{PROC}/@{pid}/gid_map w,
 
   owner @{HOME}/.mozilla/firefox/*/gmp-widevinecdm/*/libwidevinecdm.so m,
 
@@ -110,6 +116,7 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
   /sys/devices/pci*/**/{,subsystem_}device r,
   /sys/devices/pci*/**/{,subsystem_}vendor r,
   /sys/devices/system/node/node[0-9]*/meminfo r,
+  /sys/devices/pci*/**/class r,
   owner @{HOME}/.cache/thumbnails/** rw,
 
   /etc/mtab r,
@@ -280,7 +287,16 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
 
 
   /usr/bin/chrome-gnome-shell ix,
+  /etc/os-release r,
+  /sys/fs/cgroup/cpu,cpuacct/cpu.cfs_quota_us r,
 
+  owner @{HOME}/.cache/mesa_shader_cache/** wr,
+
+  capability sys_admin,
+  capability sys_chroot,
+  capability setgid,
+  capability setuid,
+  capability sys_ptrace,
 
   # Site-specific additions and overrides. See local/README for details.
 }
