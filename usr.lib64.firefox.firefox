@@ -66,6 +66,7 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
   owner /{,var/}run/shm/shmfd-* rw,
   owner /{dev,run}/shm/org.{chromium,mozilla}.* rwk,
   owner /{dev,run}/shm/wayland.mozilla.ipc.[0-9]* rw,
+  owner /run/user/[0-9]*/wayland-proxy-* rw,
   /tmp/.X[0-9]*-lock r,
   /etc/udev/udev.conf r,
   # Doesn't seem to be required, but noisy. Maybe allow 'r' for 'b*' if needed.
@@ -293,6 +294,7 @@ profile firefox /usr/lib64/firefox/firefox{,*[^s][^h]} {
   /usr/bin/chrome-gnome-shell ix,
   /etc/os-release r,
   /sys/fs/cgroup/cpu,cpuacct/cpu.cfs_quota_us r,
+  /sys/fs/cgroup/user.slice/**/cpu.max r,
 
   owner @{HOME}/.cache/mesa_shader_cache/** rwk,
   owner @{HOME}/.cache/mesa_shader_cache_db/** rwk,
